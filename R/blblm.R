@@ -3,7 +3,6 @@
 #' @import furrr
 #' @import vroom
 #' @import future
-#' @import nycflights13
 #' @importFrom utils capture.output
 #' @importFrom magrittr %>%
 #' @aliases NULL

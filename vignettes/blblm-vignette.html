@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Aravind Krishnachandran" />
+
+
+<title>The blblm Package</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">The blblm Package</h1>
+<h4 class="author">Aravind Krishnachandran</h4>
+<h4 class="date">6/10/2020</h4>
+
+
+
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">library</span>(blblm)</a></code></pre></div>
+<p>The blblm package allows a user to use the bag of little bootstraps algorithm to calculate coefficients of linear models, along with the standard errors of those coefficents. The package also allows the user to utilize parallelization, allowing tasks to be increased in speed and reduce memory usage.</p>
+<div id="parallelization" class="section level2">
+<h2>Parallelization</h2>
+<p>The <code>parallelization</code> function gives the user the choice if he/she would like to use parallelization in the blblm calculations. The function takes in two arguments. The first argument is FALSE if the user would not like to use parallelization, and TRUE if the user would like to use parallelization.The default value of this argument is FALSE. The second argument is the number of workers the user would like to distribute the tasks of the blblm calculations to. The user may first want to run <code>detectCores</code> to see how many CPUs are available to use to distribute the tasks.If the user inputs TRUE for parallel and specifies a number for the workers, then parallelization will be enabled. The function will return TRUE if the input is TRUE, indicating that parallelization has been enabled. Otherwise, it will return FALSE. This function should be run first if the user would like parallelization.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">parallelization</span>(<span class="dt">parallel =</span> <span class="ot">TRUE</span>, <span class="dt">workers =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="co">#&gt; [1] TRUE</span></a></code></pre></div>
+</div>
+<div id="the-blblm-function" class="section level2">
+<h2>The blblm function</h2>
+<p>The <code>blblm</code> function takes into account three cases. It has five arguments. The first is the formula for the linear model one would like to fit. The second is the data, which can be inputted either as a character vector of files or a complete data frame. The third is whether or not the user would like to use parallel. If he/she does, then he/she should have gotten the TRUE output from the parallelization method, and can use that result for this argument. The fourth is m, which denotes the number of subsamples to perform bag of little bootstraps. The fifth is B, which denotes the number of bootstraps to be performed for each subsample.</p>
+<p>The first case is for the user to specify that he or she would like to use parallelization and the user inputted a character vector of files containing part of the data. In this case, the total number of lines is calculated using the <code>vroom_lines</code> function. This function is efficient because it does not require reading each file in the main process to determine the total number of rows. Once the total number of data rows is determined, <code>future_map</code> is utilized to apply the <code>lm_each_subsample</code> function to each file of data in the workers. The <code>lm_each_subsample</code> function uses several subfunctions to calculate the regression coefficient estimates and residual standard error estimates. These estimates are generated by performing bootstrap within each subsample and running a linear regression model with frequencies as weights for each bootstrapped sample. The file is read in the workers using <code>vroom</code>, which is faster in performance than <code>read_csv</code>. Lastly the list of estimates and sigma values, along with the model formula, are assigned to res, which is given the S3 class “blblm”. The ability to ditribute files to the workers to have them read there instead of reading the whole dataset in the main process helps minimize memory usage.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="co">#dir.create(&quot;files&quot;, showWarnings = FALSE)</span></a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="co">#set.seed(141)</span></a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="co">#1:100 %&gt;% walk(function(i) {</span></a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="co">#    dt &lt;- tibble(x = rnorm(5000), y = rnorm(5000))</span></a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="co">#    write_csv(dt, file.path(&quot;files&quot;, sprintf(&quot;file%02d.csv&quot;, i)))</span></a>
+<a class="sourceLine" id="cb3-6" title="6"><span class="co">#})</span></a>
+<a class="sourceLine" id="cb3-7" title="7"><span class="co">#file_names &lt;- file.path(&quot;files&quot;, list.files(&quot;files&quot;))</span></a>
+<a class="sourceLine" id="cb3-8" title="8"><span class="co">#fit &lt;- blblm(y ~ x, data = file_names, parallel = TRUE, B = 100)</span></a>
+<a class="sourceLine" id="cb3-9" title="9"><span class="co">#coef(fit)</span></a></code></pre></div>
+<p>The second case is when the user decides he/she would like to use parallelization but does not pass a vector of files. Instead he/she passes in the entire dataset. The dataset is split into m sections, and then <code>future_map</code> applies the <code>lm_each_subsample</code> to each data split within the workers. This option is faster in performance than not using parallelization.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">fit &lt;-<span class="st"> </span><span class="kw">blblm</span>(dep_time <span class="op">~</span><span class="st"> </span>arr_delay, <span class="dt">data =</span> flights, <span class="dt">parallel =</span> <span class="ot">TRUE</span>, <span class="dt">m =</span> <span class="dv">10</span>, <span class="dt">B =</span> <span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="kw">coef</span>(fit)</a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="co">#&gt; (Intercept)   arr_delay </span></a>
+<a class="sourceLine" id="cb4-4" title="4"><span class="co">#&gt; 1331.243232    2.543964</span></a></code></pre></div>
+<p>If the user specifies that he/she does not want to use parallelization, then the data is loaded in the main process. The data is then split into the m specified subsamples by using the <code>split_data</code> function. Then the <code>map</code> function is used to apply the <code>lm_each_subsample</code> function to each subsample of data contained in data_list. The result is a list of lists. The first set of lists contain the estimates, while the second set contains the formula. For each subsample there are B Bootstrap estimates of the coefficients and sigma.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">fit &lt;-<span class="st"> </span><span class="kw">blblm</span>(mpg <span class="op">~</span><span class="st"> </span>wt <span class="op">*</span><span class="st"> </span>hp, <span class="dt">data =</span> mtcars, <span class="dt">parallel =</span> <span class="ot">FALSE</span>, <span class="dt">m =</span> <span class="dv">3</span>, <span class="dt">B =</span> <span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="kw">coef</span>(fit)</a>
+<a class="sourceLine" id="cb5-3" title="3"><span class="co">#&gt; (Intercept)          wt          hp </span></a>
+<a class="sourceLine" id="cb5-4" title="4"><span class="co">#&gt; 45.13342559 -6.45446770 -0.09218654 </span></a>
+<a class="sourceLine" id="cb5-5" title="5"><span class="co">#&gt;       wt:hp </span></a>
+<a class="sourceLine" id="cb5-6" title="6"><span class="co">#&gt;  0.01750990</span></a></code></pre></div>
+</div>
+<div id="the-print-method" class="section level2">
+<h2>The print method</h2>
+<p><code>print.blblm</code> is a S3 class method for blblm. It prints out the formula inputted into blblm function to be fitted.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">fit &lt;-<span class="st"> </span><span class="kw">blblm</span>(dep_time <span class="op">~</span><span class="st"> </span>arr_delay, <span class="dt">data =</span> flights, <span class="dt">parallel =</span> <span class="ot">FALSE</span>, <span class="dt">m =</span> <span class="dv">10</span>, <span class="dt">B =</span> <span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb6-2" title="2"><span class="kw">print</span>(fit)</a>
+<a class="sourceLine" id="cb6-3" title="3"><span class="co">#&gt; blblm model: dep_time ~ arr_delay</span></a></code></pre></div>
+</div>
+<div id="the-sigma-method" class="section level2">
+<h2>The sigma method</h2>
+<p><code>sigma.blblm</code> is a S3 class method for blblm which calculates the estimated sigma value, which is the residual standard error for a linear regression model. The first argument for this method is the fitted blblm model. The user can specify whether or not he/she would like a confidence interval for this estimate of sigma by inputting confidence = TRUE, along with the level of confidence. The method first extracts all the estimates from <code>object</code> which is the fitted blblm model. It then calculates the average of all the bootstrapped sigma estimates from each subsample, and takes the mean of the averages for each subsample using <code>mean</code> and <code>map_dbl</code>. If the user specified a confidence interval, then the method will take the averages for the bounds of the interval, calculated using the <code>quantile</code> function.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">fit &lt;-<span class="st"> </span><span class="kw">blblm</span>(mpg <span class="op">~</span><span class="st"> </span>wt <span class="op">*</span><span class="st"> </span>hp, <span class="dt">data =</span> mtcars, <span class="dt">parallel =</span> <span class="ot">FALSE</span>, <span class="dt">m =</span> <span class="dv">3</span>, <span class="dt">B =</span> <span class="dv">100</span>) </a>
+<a class="sourceLine" id="cb7-2" title="2"><span class="kw">sigma</span>(fit, <span class="dt">confidence =</span> <span class="ot">TRUE</span>, <span class="dt">level =</span> <span class="fl">0.95</span>)</a>
+<a class="sourceLine" id="cb7-3" title="3"><span class="co">#&gt;    sigma      lwr      upr </span></a>
+<a class="sourceLine" id="cb7-4" title="4"><span class="co">#&gt; 1.431723 1.118665 1.698360</span></a></code></pre></div>
+</div>
+<div id="the-coef-method" class="section level2">
+<h2>The coef method</h2>
+<p><code>coef.blblm</code> is a S3 class method for blblm which calculates the averages of the subsample means of the bootstrapped coefficient estimates. It extracts the estimates from the fitted blblm model and combines the bootstrapped estimates into a tibble. From there, the row means are taken, followed by the mean for each subsample.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">fit &lt;-<span class="st"> </span><span class="kw">blblm</span>(arr_delay <span class="op">~</span><span class="st"> </span>dep_time <span class="op">*</span><span class="st"> </span>air_time, <span class="dt">data =</span> flights,</a>
+<a class="sourceLine" id="cb8-2" title="2">               <span class="dt">parallel =</span> <span class="ot">TRUE</span>, <span class="dt">m =</span> <span class="dv">20</span>, <span class="dt">B =</span> <span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb8-3" title="3"><span class="kw">coef</span>(fit)</a>
+<a class="sourceLine" id="cb8-4" title="4"><span class="co">#&gt;       (Intercept)          dep_time </span></a>
+<a class="sourceLine" id="cb8-5" title="5"><span class="co">#&gt;     -1.877527e+01      2.074043e-02 </span></a>
+<a class="sourceLine" id="cb8-6" title="6"><span class="co">#&gt;          air_time dep_time:air_time </span></a>
+<a class="sourceLine" id="cb8-7" title="7"><span class="co">#&gt;     -1.941011e-02      3.074006e-06</span></a></code></pre></div>
+</div>
+<div id="the-confint-method" class="section level2">
+<h2>The confint method</h2>
+<p><code>confint.blblm</code> is a S3 class method for blblm which constructs confidence intervals for named coefficients in the model (non-intercept). If coefficient names are not specified, then confidence intervals are constructed for all coefficient names, including interaction terms. It extracts the estimates from the fitted blblm model. It then gathers into a matrix form the averaged interval bounds for each estimate within each subsample, with the coefficents names as the rows and the interval bounds as the columns.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">fit &lt;-<span class="st"> </span><span class="kw">blblm</span>(arr_delay <span class="op">~</span><span class="st"> </span>dep_time <span class="op">*</span><span class="st"> </span>air_time, <span class="dt">data =</span> flights,</a>
+<a class="sourceLine" id="cb9-2" title="2">               <span class="dt">parallel =</span> <span class="ot">TRUE</span>, <span class="dt">m =</span> <span class="dv">10</span>, <span class="dt">B =</span> <span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb9-3" title="3"><span class="kw">confint</span>(fit, <span class="kw">c</span>(<span class="st">&quot;dep_time&quot;</span>, <span class="st">&quot;air_time&quot;</span>, <span class="st">&quot;dep_time:air_time&quot;</span>))</a>
+<a class="sourceLine" id="cb9-4" title="4"><span class="co">#&gt;                            2.5%</span></a>
+<a class="sourceLine" id="cb9-5" title="5"><span class="co">#&gt; dep_time           2.003248e-02</span></a>
+<a class="sourceLine" id="cb9-6" title="6"><span class="co">#&gt; air_time          -2.462015e-02</span></a>
+<a class="sourceLine" id="cb9-7" title="7"><span class="co">#&gt; dep_time:air_time -1.460397e-06</span></a>
+<a class="sourceLine" id="cb9-8" title="8"><span class="co">#&gt;                           97.5%</span></a>
+<a class="sourceLine" id="cb9-9" title="9"><span class="co">#&gt; dep_time           2.151658e-02</span></a>
+<a class="sourceLine" id="cb9-10" title="10"><span class="co">#&gt; air_time          -1.346967e-02</span></a>
+<a class="sourceLine" id="cb9-11" title="11"><span class="co">#&gt; dep_time:air_time  7.034669e-06</span></a></code></pre></div>
+</div>
+<div id="the-predict-method" class="section level2">
+<h2>The predict method</h2>
+<p><code>predict.blblm</code> is a S3 class method for blblm which allows the user to predict the value of the response variable based on new observations from the predictors. It utilizes the model formula specified in blblm. If the user specifies confidence = TRUE, then the method will also output a confidence interval for the predicted estimate. The method extracts the estimates from the fitted blblm model and constructs a design matrix based on the predictor variables of the new data. In the old implementation of the blblm package, prediction resulted in an error when Y was regressed on all of the predictors (Y ~ .), with the error citing that there is no ‘data’ argument. This error was fixed by changing <code>X &lt;- model.matrix(reformulate(attr(terms(object$formula), &quot;term.labels&quot;)), new_data)</code> to <code>X &lt;- model.matrix(reformulate(attr(terms.formula(object$formula,data = new_data), &quot;term.labels&quot;)), new_data)</code>. The design matrix is multiplied with the estimates of the coefficients. They are combined into a tibble to find their means, and the confidence interval is calculated.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">fit &lt;-<span class="st"> </span><span class="kw">blblm</span>(mpg <span class="op">~</span><span class="st"> </span>wt <span class="op">*</span><span class="st"> </span>hp, <span class="dt">data =</span> mtcars, <span class="dt">parallel =</span> <span class="ot">TRUE</span>, <span class="dt">m =</span> <span class="dv">3</span>, <span class="dt">B =</span> <span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb10-2" title="2"><span class="kw">predict</span>(fit, <span class="kw">data.frame</span>(<span class="dt">wt =</span> <span class="kw">c</span>(<span class="dv">7</span>, <span class="fl">5.5</span>), <span class="dt">hp =</span> <span class="kw">c</span>(<span class="dv">130</span>, <span class="dv">190</span>)), <span class="dt">confidence =</span> <span class="ot">TRUE</span>, <span class="dt">level =</span> <span class="fl">0.95</span>)</a>
+<a class="sourceLine" id="cb10-3" title="3"><span class="co">#&gt;         fit       lwr       upr</span></a>
+<a class="sourceLine" id="cb10-4" title="4"><span class="co">#&gt; 1  1.146381 -8.152383  8.570796</span></a>
+<a class="sourceLine" id="cb10-5" title="5"><span class="co">#&gt; 2 10.841401  8.026513 15.084048</span></a></code></pre></div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
