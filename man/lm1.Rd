@@ -2,10 +2,20 @@
 % Please edit documentation in R/blblm.R
 \name{lm1}
 \alias{lm1}
-\title{estimate the regression estimates based on given the number of repetitions}
+\title{Estimate the regression estimates based on given number of repetitions}
 \usage{
 lm1(formula, data, freqs)
 }
+\arguments{
+\item{formula}{formula}
+
+\item{data}{data.frame}
+
+\item{freqs}{matrix}
+}
+\value{
+list of coefficents and sigma
+}
 \description{
-estimate the regression estimates based on given the number of repetitions
+Estimate the regression estimates based on given number of repetitions
 }

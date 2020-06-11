@@ -2,10 +2,22 @@
 % Please edit documentation in R/blblm.R
 \name{lm_each_subsample}
 \alias{lm_each_subsample}
-\title{compute the estimates}
+\title{Compute the estimates by repeating lm_each_boot B times for a given subsample.}
 \usage{
 lm_each_subsample(formula, data, n, B)
 }
+\arguments{
+\item{formula}{formula}
+
+\item{data}{data.frame}
+
+\item{n}{numeric}
+
+\item{B}{numeric}
+}
+\value{
+list of coefficents and sigma
+}
 \description{
-compute the estimates
+Compute the estimates by repeating lm_each_boot B times for a given subsample.
 }

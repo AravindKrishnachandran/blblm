@@ -2,10 +2,16 @@
 % Please edit documentation in R/blblm.R
 \name{blbsigma}
 \alias{blbsigma}
-\title{compute sigma from fit}
+\title{Compute sigma (residual standard error) from fit}
 \usage{
 blbsigma(fit)
 }
+\arguments{
+\item{fit}{lm}
+}
+\value{
+numeric sigma estimate
+}
 \description{
-compute sigma from fit
+Compute sigma (residual standard error) from fit
 }

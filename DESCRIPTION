@@ -1,18 +1,29 @@
 Package: blblm
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Calculate Bag of Little Bootstraps Model
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Author: Aravind Krishnachandran
+Maintainer: Aravind Krishnachandran <akrishnachandran@ucdavis.edu>
+Description: This package contains functions used to calculate linear regression
+    model coefficients,coefficent standard errors, confidence intervals, 
+    and predictions. This package utilizes bag of little bootstraps to 
+    perform calculations, and is also capable of handling parallelization.
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Suggests: 
-    testthat (>= 2.1.0)
+    testthat (>= 2.1.0),
+    knitr,
+    rmarkdown
 Imports: 
     purrr,
-    magrittr
+    stats,
+    magrittr,
+    furrr,
+    vroom,
+    utils,
+    future,
+    nycflights13
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.0
+VignetteBuilder: knitr

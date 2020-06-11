@@ -2,10 +2,20 @@
 % Please edit documentation in R/blblm.R
 \name{lm_each_boot}
 \alias{lm_each_boot}
-\title{compute the regression estimates for a blb dataset}
+\title{Compute the regression estimates for a blb dataset by including frequencies.}
 \usage{
 lm_each_boot(formula, data, n)
 }
+\arguments{
+\item{formula}{formula}
+
+\item{data}{data.frame}
+
+\item{n}{numeric}
+}
+\value{
+list of coefficents and sigma
+}
 \description{
-compute the regression estimates for a blb dataset
+Compute the regression estimates for a blb dataset by including frequencies.
 }
